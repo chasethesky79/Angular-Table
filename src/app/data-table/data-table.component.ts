@@ -35,7 +35,7 @@ export class DataTableComponent implements OnInit {
     }
 
    navigateToFirstPage() {
-       this.currentPage = 1
+       this.currentPage = 1;
        this.changePage(this.currentPage);
    }
 

@@ -20,7 +20,3 @@ export interface PersonInfo {
     date_recent: string;
     url: string;
 }
-
-export interface PersonWrapper {
-    default: PersonInfo[]
-}
