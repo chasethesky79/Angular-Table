@@ -21,84 +21,86 @@ export class DataTableComponent implements OnInit {
     this.changePage(1);
   }
 
-  onSelect(value: number) {
-    this.recordsPerPage = value;
-    this.currentPage = 1;
-    this.changePage(1);
-  }
-
-  prevPage() {
-    if (this.currentPage > 1) {
-        this.currentPage--;
-        this.changePage(this.currentPage);
+    onSelect(value: number) {
+      this.recordsPerPage = value;
+      this.currentPage = 1;
+      this.changePage(1);
     }
- }
 
- navigateToFirstPage() {
-     this.currentPage = 1
-     this.changePage(this.currentPage);
- }
-
- navigateToLastPage() {
-    this.currentPage = this.numPages();
-    this.changePage(this.currentPage);
-}
-
- nextPage() {
-    if (this.currentPage < this.numPages()) {
-        this.currentPage++;
-        this.changePage(this.currentPage);
+    prevPage() {
+      if (this.currentPage > 1) {
+          this.currentPage--;
+          this.changePage(this.currentPage);
+      }
     }
-}
 
-changePage(page: number) {
-    const btn_next = document.getElementById('btn_next');
-    const btn_prev = document.getElementById('btn_prev');
+   navigateToFirstPage() {
+       this.currentPage = 1
+       this.changePage(this.currentPage);
+   }
+
+   navigateToLastPage() {
+      this.currentPage = this.numPages();
+      this.changePage(this.currentPage);
+   }
+
+   nextPage() {
+      if (this.currentPage < this.numPages()) {
+          this.currentPage++;
+          this.changePage(this.currentPage);
+      }
+   }
+
+  changePage(page: number) {
+    const btnNext = document.getElementById('btn_next');
+    const btnPrev = document.getElementById('btn_prev');
 
     // Validate page
     if (page < 1) {
         page = 1;
     }
-    if (page > this.numPages()) page = this.numPages();
-
-    if (page == 1) {
-        btn_prev.style.visibility = 'hidden';
-    } else {
-        btn_prev.style.visibility = 'visible';
+    if (page > this.numPages()) {
+      page = this.numPages();
     }
 
-    if (page == this.numPages()) {
-        btn_next.style.visibility = 'hidden';
+    if (page === 1) {
+        btnPrev.style.visibility = 'hidden';
     } else {
-        btn_next.style.visibility = 'visible';
+        btnPrev.style.visibility = 'visible';
+    }
+
+    if (page === this.numPages()) {
+        btnNext.style.visibility = 'hidden';
+    } else {
+        btnNext.style.visibility = 'visible';
     }
     this.buildDataTable(page);
 }
 
-numPages() { 
-    return Math.ceil(this.dataTableService.getPersonInfoItems().length / this.recordsPerPage);
- }
+    numPages() {
+        return Math.ceil(this.dataTableService.getPersonInfoItems().length / this.recordsPerPage);
+     }
 
-private buildDataTable(page: number) {
-  let cols: string[] = Object.keys(this.personItems[0]);
-  const table = document.createElement('table');
-  let tr = table.insertRow(-1);               
-  cols.forEach((col: string) => {
-    const th = document.createElement('th');
-    th.innerHTML = col.toUpperCase();
-    tr.appendChild(th)
-  });
-
-  for (let i = (page-1) * this.recordsPerPage; i < (page * this.recordsPerPage); i++) {
-      tr = table.insertRow(-1);
-      const personItem = this.personItems[i];
+    private buildDataTable(page: number) {
+      const cols: string[] = Object.keys(this.personItems[0]);
+      const table = document.createElement('table');
+      let tr = table.insertRow(-1);
       cols.forEach((col: string) => {
-        const tableCell = tr.insertCell(-1);
-        tableCell.innerHTML = personItem[col];
+        const th = document.createElement('th');
+        th.innerHTML = col.toUpperCase();
+        tr.appendChild(th);
       });
-  }
-  const divShowData = document.getElementById('dataTable');
-  divShowData.innerHTML = "";
-  divShowData.appendChild(table);
- }
-}
+
+      for (let i = (page - 1) * this.recordsPerPage; i < (page * this.recordsPerPage); i++) {
+          tr = table.insertRow(-1);
+          const personItem = this.personItems[i];
+          cols.forEach((col: string) => {
+            const tableCell = tr.insertCell(-1);
+            tableCell.innerHTML = personItem[col];
+          });
+      }
+      const divShowData = document.getElementById('dataTable');
+      divShowData.innerHTML = '';
+      divShowData.appendChild(table);
+     }
+    }
