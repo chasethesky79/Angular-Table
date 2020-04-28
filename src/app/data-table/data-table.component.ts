@@ -10,9 +10,9 @@ import { PersonInfo } from '../model/person.info';
 export class DataTableComponent implements OnInit {
 
   personItems: PersonInfo[];
-  current_page = 1;
-  records_per_page_options = [5, 7, 10, 15, 20];
-  records_per_page = 5;
+  currentPage = 1;
+  recordsPerPageOptions = [5, 7, 10, 15, 20];
+  recordsPerPage = 5;
 
   constructor(private dataTableService: DataTableService) { }
 
@@ -22,62 +22,74 @@ export class DataTableComponent implements OnInit {
   }
 
   onSelect(value: number) {
-    this.records_per_page = value;
-    this.current_page = 1;
+    this.recordsPerPage = value;
+    this.currentPage = 1;
     this.changePage(1);
   }
 
   prevPage() {
-    if (this.current_page > 1) {
-        this.current_page--;
-        this.changePage(this.current_page);
+    if (this.currentPage > 1) {
+        this.currentPage--;
+        this.changePage(this.currentPage);
     }
  }
 
+ navigateToFirstPage() {
+     this.currentPage = 1
+     this.changePage(this.currentPage);
+ }
+
+ navigateToLastPage() {
+    this.currentPage = this.numPages();
+    this.changePage(this.currentPage);
+}
+
  nextPage() {
-    if (this.current_page < this.numPages()) {
-        this.current_page++;
-        this.changePage(this.current_page);
+    if (this.currentPage < this.numPages()) {
+        this.currentPage++;
+        this.changePage(this.currentPage);
     }
 }
 
 changePage(page: number) {
-    const btn_next = document.getElementById("btn_next");
-    const btn_prev = document.getElementById("btn_prev");
+    const btn_next = document.getElementById('btn_next');
+    const btn_prev = document.getElementById('btn_prev');
 
     // Validate page
-    if (page < 1) page = 1;
+    if (page < 1) {
+        page = 1;
+    }
     if (page > this.numPages()) page = this.numPages();
 
     if (page == 1) {
-        btn_prev.style.visibility = "hidden";
+        btn_prev.style.visibility = 'hidden';
     } else {
-        btn_prev.style.visibility = "visible";
+        btn_prev.style.visibility = 'visible';
     }
 
     if (page == this.numPages()) {
-        btn_next.style.visibility = "hidden";
+        btn_next.style.visibility = 'hidden';
     } else {
-        btn_next.style.visibility = "visible";
+        btn_next.style.visibility = 'visible';
     }
     this.buildDataTable(page);
 }
 
 numPages() { 
-    return Math.ceil(this.dataTableService.getPersonInfoItems().length / this.records_per_page);
+    return Math.ceil(this.dataTableService.getPersonInfoItems().length / this.recordsPerPage);
  }
 
 private buildDataTable(page: number) {
   let cols: string[] = Object.keys(this.personItems[0]);
-  const table = document.createElement("table");
+  const table = document.createElement('table');
   let tr = table.insertRow(-1);               
   cols.forEach((col: string) => {
-    const th = document.createElement("th");
+    const th = document.createElement('th');
     th.innerHTML = col.toUpperCase();
     tr.appendChild(th)
   });
 
-  for (let i = (page-1) * this.records_per_page; i < (page * this.records_per_page); i++) {
+  for (let i = (page-1) * this.recordsPerPage; i < (page * this.recordsPerPage); i++) {
       tr = table.insertRow(-1);
       const personItem = this.personItems[i];
       cols.forEach((col: string) => {

@@ -1,11 +1,13 @@
 <div id="dataTable"></div>
 <tfoot class="navigationPane">
 <tr>
-  <span>Page {{current_page}} of {{numPages()}}</span>
+  <span>Page {{currentPage}} of {{numPages()}}</span>
+  <a href="javascript:void(0);" (click)="navigateToFirstPage()" id="btn_first">First</a>
   <a href="javascript:void(0);" (click)="prevPage()" id="btn_prev">Prev</a>
   <a href="javascript:void(0);" (click)="nextPage()" id="btn_next">Next</a>
+  <a href="javascript:void(0);" (click)="navigateToLastPage()" id="btn_last">Last</a>
   <select (change)="onSelect($event.target.value)">
-    <option *ngFor="let option of records_per_page_options" value= {{option}}>
+    <option *ngFor="let option of recordsPerPageOptions" value= {{option}}>
       {{option}}
     </option>
   </select>

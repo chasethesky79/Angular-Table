@@ -42,8 +42,8 @@
   position: absolute;
   right: 200px;
 }
-#btn_prev, #btn_next {
-  margin: 5px 10px 7px 10px;
+#btn_prev, #btn_first, #btn_last, #btn_next {
+  margin: 5px 10px 7px 5px;
 }
   
  
