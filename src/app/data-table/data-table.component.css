@@ -20,17 +20,17 @@
     margin-top: 30px;
     margin-bottom: 20px;
     width: 90%;
-    overflow-y: scroll;  
+    overflow-y: scroll;
     table-layout: fixed;
 }
 
 :host ::ng-deep thead, :host ::ng-deep tbody {
     display: block;
-    max-height: 620px;
+    max-height: 700px;
 }
 
-:host ::ng-deep tbody { 
-    overflow-x: auto;  
+:host ::ng-deep tbody {
+    overflow-x: auto;
 }
 
 :host ::ng-deep tr:nth-child(even) {
@@ -45,5 +45,4 @@
 #btn_prev, #btn_first, #btn_last, #btn_next {
   margin: 5px 10px 7px 5px;
 }
-  
- 
+
