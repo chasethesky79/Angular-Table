@@ -51,7 +51,7 @@ export class DataTableComponent implements OnInit {
       }
    }
 
-  changePage(page: number) {
+  private changePage(page: number) {
     const btnNext = document.getElementById('btn_next');
     const btnPrev = document.getElementById('btn_prev');
 

@@ -26,8 +26,8 @@ describe('DataTableComponent', () => {
 
   describe('Page Navigation', () => {
     beforeEach(() => {
-      component.changePage = () => {};
-      changePageSpy = spyOn(component, 'changePage');
+      (component as any).changePage = () => {};
+      changePageSpy = spyOn(component as any, 'changePage');
     });
 
     it('onSelect -> should set the records per page to selected value and navigate to first page', () => {
